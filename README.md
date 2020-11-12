@@ -64,3 +64,25 @@ eventbus.dispatch('test.event', 'message')
 
 })
 ```
+### DynamicFactory
+Dynamic class registration and inheritance/delegation resolution.
+```javascript
+import { DynamicFactory } from '@wault/wire-toolkit'
+
+const factory = new DynamicFactory()
+factory.register('example', Entity => class Example extends Entity {
+    print(){ return this.text }
+})
+factory.register('example', Entity => class OverrideExample extends Entity {
+    print(){ return `override ${this.text}` }
+})
+factory.register('custom-example', () => class InheritanceExample extends factory.resolve('example') {
+    print(){ return `extended ${super.print()}` }
+})
+
+const example = factory.create({
+    class: 'custom-example'
+    text: 'content'
+})
+example.delete()
+```
