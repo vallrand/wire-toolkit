@@ -1,5 +1,5 @@
 {
-  "name": "wire-toolkit",
+  "name": "@wault/wire-toolkit",
   "version": "0.0.1",
   "description": "collection of messaging systems and mediators",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/vallrand/wire-toolkit/issues"
   },
-  "homepage": "https://github.com/vallrand/wire-toolkit",
+  "homepage": "https://github.com/vallrand/wire-toolkit#readme",
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "jest": "^26.6.1",

@@ -13,9 +13,9 @@ export class DataStore {
         key = `${this._prefix}${key}`
         try{
             if(value != null)
-                localStorage.setItem(name, JSON.stringify(value, null, 0))
+                localStorage.setItem(key, JSON.stringify(value, null, 0))
             else
-                localStorage.removeItem(name)
+                localStorage.removeItem(key)
         }catch(error){
             this._tempData[key] = value
         }

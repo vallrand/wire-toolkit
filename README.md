@@ -8,7 +8,7 @@ Collection of messaging systems and mediators.
 
 With [NPM](https://www.npmjs.com/)
 ```sh
-$ npm install --save-dev
+$ npm install --save @wault/wire-toolkit
 ```
 
 ## API
@@ -16,7 +16,7 @@ $ npm install --save-dev
 ### Broadcaster
 Default synchronous message bus. All listeners are passive and are called immidiately upon dispatch.
 ```javascript
-import { Broadcaster } from 'wire-toolkit'
+import { Broadcaster } from '@wault/wire-toolkit'
 
 const eventbus = new Broadcaster()
 
@@ -31,7 +31,7 @@ eventbus.dispatchEvent('message')
 ### Channel
 Lightweight synchronous single channel emitter.
 ```javascript
-import { Channel } from 'wire-toolkit'
+import { Channel } from '@wault/wire-toolkit'
 
 const emitter = new Channel()
 .addListener(function handle(value){
@@ -45,7 +45,7 @@ emitter.value //"message"
 
 ### AsyncMediator
 ```javascript
-import { AsyncMediator } from 'wire-toolkit'
+import { AsyncMediator } from '@wault/wire-toolkit'
 
 const eventbus = new AsyncMediator()
 .subscribe('test.event', async function handler(request, response, error){
