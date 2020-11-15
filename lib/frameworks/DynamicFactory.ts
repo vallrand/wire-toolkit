@@ -28,8 +28,10 @@ export class DynamicFactory {
     public resolve<T>(className: string): Constructor<T> {
         const registry = this._registry[className]
         if(!registry) throw new Error(`Class "${className}" not registered.`)
-        return registry.root = registry.queue
+        const root: Constructor<T> = registry.queue
         .reduce((prev: Constructor<any>, factory: ConstructorFactory<T>) => factory(prev), registry.root)
+        registry.queue.length = 0
+        return registry.root = root
     }
     public register<T>(className: string, factory: ConstructorFactory<T>): this {
         if(!this._registry[className])
@@ -50,5 +52,13 @@ export class DynamicFactory {
         if(!~this._pool[className].indexOf(instance))
         this._pool[className].push(instance)
         return this
+    }
+    protected _query(className: string): string[] {
+        const out: string[] = []
+        const SuperClass = this.resolve(className)
+        for(let className in this._registry)
+            if(Object.isPrototypeOf.call(SuperClass, this.resolve(className)))
+                out.push(className)
+        return out
     }
 }

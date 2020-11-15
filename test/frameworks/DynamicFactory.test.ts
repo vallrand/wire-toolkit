@@ -76,6 +76,8 @@ it('allows to resolve singleton classes', function(){
     expect(singleton.paramA).toEqual('a')
     expect(singleton.paramB).toEqual('b')
     expect(singleton.test()).toEqual('extended test')
+
+    expect(singleton).toBe(factory.resolve('singleton'))
 })
 
 it('reuses entities using object pool', function(){
