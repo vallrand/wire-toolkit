@@ -4,6 +4,15 @@
 
 Collection of messaging systems and mediators.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [API](#api)
+  - [Broadcaster](#broadcaster)
+  - [Channel](#channel)
+  - [AsyncMediator](#asyncmediator)
+  - [DynamicFactory](#dynamicfactory)
+
 ## Installation
 
 With [NPM](https://www.npmjs.com/)

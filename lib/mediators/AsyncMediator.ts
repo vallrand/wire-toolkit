@@ -26,15 +26,16 @@ export class AsyncMediator {
         const complete = new Deferred<R>()
         function next(status: DeferredStatus, response: R, error?: any): void {
             const subscriber = queue.shift() as Subscriber<T,R,any>
-            if(!subscriber) return void (status === DeferredStatus.REJECTED
-            ? complete.reject(error) : complete.resolve(response))
+            if(!subscriber) return status === DeferredStatus.REJECTED
+            ? complete.reject(error) : complete.resolve(response)
             const index = subscribers.indexOf(subscriber)
 
             if(!~index || !(status & subscriber.filter as number)) return next(status, response, error)
             if(subscriber.single) subscribers.splice(index, 1)
 
-            new Deferred<void>().resolve()
-            .then(function(){
+            const deferred = new Deferred<void>()
+            deferred.resolve()
+            deferred.then(function(){
                 switch(status){
                     case DeferredStatus.PENDING:
                         return (subscriber as RequestHandler<T, R>)(request)

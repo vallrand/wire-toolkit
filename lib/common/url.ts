@@ -1,4 +1,4 @@
-export function encodeURLQuery(query: {[key: string]: string | null}): string {
+export function encodeURLQuery(query: {[key: string]: string | number | null}): string {
     const out: string[] = []
     for(let key in query) if(query[key] != null)
     out.push(`${key}=${encodeURIComponent(query[key] as string)}`)

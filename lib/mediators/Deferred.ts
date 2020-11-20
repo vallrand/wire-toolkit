@@ -8,10 +8,10 @@ export class Deferred<T> implements PromiseLike<T> {
     private _status: DeferredStatus = DeferredStatus.PENDING
     private _value: T | any
     private readonly _listeners: Array<(status: DeferredStatus, value: T | any) => void> = []
-    resolve = (value: T | PromiseLike<T>): this => this._settle(DeferredStatus.RESOLVED, value)
-    reject = (reason: any): this => this._settle(DeferredStatus.REJECTED, reason)
-    private _settle(status: DeferredStatus, value: T | PromiseLike<T> | any): this {
-        if(this._status !== DeferredStatus.PENDING) return this
+    resolve = (value: T | PromiseLike<T>): void => this._settle(DeferredStatus.RESOLVED, value)
+    reject = (reason: any): void => this._settle(DeferredStatus.REJECTED, reason)
+    private _settle(status: DeferredStatus, value: T | PromiseLike<T> | any): void {
+        if(this._status !== DeferredStatus.PENDING) return
         if(value && value.then) value.then(this.resolve, this.reject)
         else{
             this._status = status
@@ -20,7 +20,6 @@ export class Deferred<T> implements PromiseLike<T> {
                 this._listeners[i](status, value)
             this._listeners.length = 0
         }
-        return this
     }
     public then<RT = T, RF = never>(
         onResolve?: (value: T) => RT | PromiseLike<RT>,
