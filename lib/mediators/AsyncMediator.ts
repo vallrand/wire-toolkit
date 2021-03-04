@@ -46,7 +46,7 @@ export class AsyncMediator {
                 }
             }).then(
                 nextResponse => next(
-                    DeferredStatus.PENDING && nextResponse === undefined
+                    status === DeferredStatus.PENDING && nextResponse === undefined
                     ? DeferredStatus.PENDING
                     : DeferredStatus.RESOLVED,
                     nextResponse === undefined ? response : nextResponse, error

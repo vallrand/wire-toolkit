@@ -156,3 +156,21 @@ it('allows to use error handlers', async function(){
     
     expect(errorHandler).toHaveBeenCalledWith('request', undefined, expect.any(Error))
 })
+
+it('allows overriding handlers', async function(){
+    const eventbus = new AsyncMediator()
+    const handler = jest.fn().mockReturnValue('initial')
+    const overrideHandler = jest.fn().mockReturnValue('override')
+    const postProcessA = jest.fn()
+    const postProcessB = jest.fn()
+    eventbus.subscribe('event', handler, { priority: 0, filter: 1 })
+    eventbus.subscribe('event', postProcessA, { priority: 1, filter: 2 })
+    eventbus.subscribe('event', postProcessB, { priority: 1, filter: 2 })
+    eventbus.subscribe('event', overrideHandler, { priority: -1, filter: 1 })
+
+    await expect(eventbus.dispatch('event', 'request')).resolves.toEqual('override')
+    expect(handler).not.toHaveBeenCalled()
+    expect(overrideHandler).toHaveBeenCalledTimes(1)
+    expect(postProcessA).toHaveBeenCalledWith('request', 'override')
+    expect(postProcessB).toHaveBeenCalledWith('request', 'override')
+})

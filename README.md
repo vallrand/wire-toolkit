@@ -31,7 +31,7 @@ const eventbus = new Broadcaster()
 
 .addEventListener('test', function handle(message){
 
-}, { once: false })
+}, { single: false })
 .removeEventListener('test', handle)
 
 eventbus.dispatchEvent('message')
@@ -45,7 +45,7 @@ import { Channel } from '@wault/wire-toolkit'
 const emitter = new Channel()
 .addListener(function handle(value){
 
-}, { once: false })
+}, { single: false })
 .removeListener(handle)
 
 emitter.dispatch('message')
