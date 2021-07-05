@@ -4,7 +4,7 @@ export class DataStore {
     public get<T>(key: string): T {
         key = `${this._prefix}${key}`
         try{
-            return JSON.parse(localStorage.getItem(key) as string)
+            return JSON.parse(localStorage.getItem(key)!!)
         }catch(error){
             return this._tempData[key]
         }
@@ -19,5 +19,12 @@ export class DataStore {
         }catch(error){
             this._tempData[key] = value
         }
+    }
+    public addListener(key: string, handler: (next: any, prev: any) => void): void {
+        key = `${this._prefix}${key}`
+        addEventListener('storage', (event: StorageEvent) => {
+            if(key !== event.key) return
+            handler.call(this, JSON.parse(event.newValue!!), JSON.parse(event.oldValue!!))
+        })
     }
 }
