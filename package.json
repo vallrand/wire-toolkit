@@ -1,6 +1,6 @@
 {
   "name": "@wault/wire-toolkit",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "collection of messaging systems and mediators",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

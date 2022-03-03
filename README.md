@@ -1,5 +1,8 @@
 # Wire Toolkit
 
+[![Build](https://github.com/vallrand/wire-toolkit/workflows/publish/badge.svg)](https://github.com/vallrand/wire-toolkit/actions)
+[![npm version](https://badge.fury.io/js/@wault%2Fwire-toolkit.svg)](https://www.npmjs.com/package/@wault/wire-toolkit)
+
 > **WARNING**: This project is under development. Current use is not recommended!
 
 Collection of messaging systems and mediators.
